@@ -13,7 +13,8 @@
     "roles":{
         "student":1,
         "teacher":2,
-        "vehiculo":3
+        "vehiculo":3,
+        "asesor":4
     },
     "server-port": 3000
 }
