@@ -1,4 +1,4 @@
-const studentDto = require("../../model/dto/student.dto");
+const vehiculoDto = require("../../model/dto/vehiculo.dto");
 const userDto = require("../../model/dto/user.dto");
 const config = require("config");
 
@@ -7,17 +7,17 @@ const helper = require("../helpers/general.helper");
 const notiHelper = require("../helpers/notification.helper");
 
 /* aqui creo un nuevo estudiante */
-exports.createStudent = (req, res, next) => {
+exports.createVehiculo = (req, res, next) => {
     /* console.log(req.body); */
-    let std = {
-        code: req.body.code,
-        name: req.body.name,
-        lastName: req.body.lastName,
-        email:req.body.email,
+    let veh = {
+        matricula: req.body.matricula,
+        marca: req.body.marca,
+        modelo: req.body.modelo,
+        precio:req.body.precio,
         phone: req.body.phone,
-        career: req.body.career
+        color: req.body.color
     };
-    studentDto.create(std,(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
+    vehiculoDto.create(veh,(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
         if ( err ){
             return res.status(400).json({
                 error: err
@@ -27,11 +27,11 @@ exports.createStudent = (req, res, next) => {
             que responda de buena manera, pero hay que
             guardar en el usuario */
 
-        let r = config.get("roles").student;
+        let r = config.get("roles").vehiculo;
         let user = {
-            name: std.name,
-            lastName: std.lastName,
-            userName: std.code,//username es el codigo de los estudiantes
+            marca: vehiculo.marca,
+            modelo: vehiculo.modelo,
+            userVehiculo: vehiculo.matricula,//username es el codigo de los estudiantes
             password: helper.encryptPassword(req.body.password),
             rol: r
         };
@@ -41,7 +41,7 @@ exports.createStudent = (req, res, next) => {
                     error: err
                 });
             }
-            notiHelper.sendSMS(std.phone);
+            notiHelper.sendSMS(vehiculo.phone);
             res.status(201).json({
                 info: data
             });
@@ -50,17 +50,18 @@ exports.createStudent = (req, res, next) => {
 
 };
 
-/* aqui actualizo un nuevo estudiante */
-exports.updateStudent = (req, res, next) => {
+/* aqui actualizo un nuevo vehiculo */
+exports.updateVehiculo = (req, res, next) => {
 
-    let std = {
-        code: req.body.code,
-        name: req.body.name,
-        lastName: req.body.lastName,
+    let veh = {
+        matricula: req.body.matricula,
+        marca: req.body.marca,
+        modelo: req.body.modelo,
+        precio:req.body.precio,
         phone: req.body.phone,
-        career: req.body.career
+        color: req.body.color
     };
-    studentDto.update({_id: req.body.id},(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
+    vehiculoDto.update({_id: req.body.id},veh,(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
         if ( err ){
             return res.status(400).json({
                 error: err
@@ -75,7 +76,7 @@ exports.updateStudent = (req, res, next) => {
 
 exports.getAll = (req, res, next) => {
 
-    studentDto.getAll({},(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
+    vehiculoDto.getAll({},(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
         if ( err ){
             return res.status(400).json({
                 error: err
@@ -90,7 +91,7 @@ exports.getAll = (req, res, next) => {
 
 exports.getByCode = (req, res, next) => {
 
-    studentDto.getByCode({code: req.params.code },(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
+    vehiculoDto.getByCode({code: req.params.code },(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
         if ( err ){
             return res.status(400).json({
                 error: err
@@ -103,9 +104,9 @@ exports.getByCode = (req, res, next) => {
 
 };
 
-exports.deleteStudent= () => {
+exports.deleteVehiculo= () => {
 
-    studentDto.delete({_id: req.body.id },(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
+    vehiculoDto.delete({_id: req.body.id },(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
         if ( err ){
             return res.status(400).json({
                 error: err
