@@ -11,10 +11,7 @@
         "cryptojs":"Tq8EBfcUwM"
     },
     "roles":{
-        "student":1,
-        "teacher":2,
-        "vehiculo":3,
-        "asesor":4
+        "vehiculo":1
     },
     "server-port": 3000
 }

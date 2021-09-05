@@ -6,7 +6,7 @@ const config = require("config");
 const helper = require("../helpers/general.helper");
 const notiHelper = require("../helpers/notification.helper");
 
-/* aqui creo un nuevo estudiante */
+/* aqui creo un nuevo vehiculo */
 exports.createVehiculo = (req, res, next) => {
     /* console.log(req.body); */
     let veh = {
@@ -29,9 +29,10 @@ exports.createVehiculo = (req, res, next) => {
 
         let r = config.get("roles").vehiculo;
         let user = {
-            marca: vehiculo.marca,
-            modelo: vehiculo.modelo,
-            userVehiculo: vehiculo.matricula,//username es el codigo de los estudiantes
+            marca: veh.marca,
+            modelo: veh.modelo,
+            userVehiculo: veh.matricula,//username es el codigo de los estudiantes
+            precio:veh.precio,
             password: helper.encryptPassword(req.body.password),
             rol: r
         };
@@ -41,7 +42,7 @@ exports.createVehiculo = (req, res, next) => {
                     error: err
                 });
             }
-            notiHelper.sendSMS(vehiculo.phone);
+            notiHelper.sendSMS(veh.phone);
             res.status(201).json({
                 info: data
             });
@@ -115,4 +116,4 @@ exports.deleteVehiculo= () => {
         res.status(204).json(); //aqui todo actualiza
     });
 
-}
+};
