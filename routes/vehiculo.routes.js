@@ -19,7 +19,8 @@ exports.vehiculoRoutes = (app) => {
         controller.updateVehiculo(req,res,next);
     });
 
-    app.delete("/vehiculo",(req,res,next) => {
+    /* tengo que mandar el id creado */
+    app.delete("/:id",(req,res,next) => {
         controller.deleteVehiculo(req,res,next);
     });
 

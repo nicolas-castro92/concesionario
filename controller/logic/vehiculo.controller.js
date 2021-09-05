@@ -104,8 +104,10 @@ exports.getByCode = (req, res, next) => {
     });
 
 };
-
+/* el metodo esta mal  */
 exports.deleteVehiculo= () => {
+
+    const {id} = req.params;
 
     vehiculoDto.delete({_id: req.body.id },(err,data) => { // envio el data y un cb, pero ese cb puede generar un error u otra info, el data que devuelve ya correctamente guardado el registro
         if ( err ){
