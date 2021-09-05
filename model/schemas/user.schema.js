@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     matricula, marca, modelo, color, precio
     */
 
-    userVehiculo: { /* code */ /* matricula */
+    code: { /* code */ /* matricula */
         type:"String",
         required: true,
         unique: true
